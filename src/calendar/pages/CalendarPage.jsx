@@ -1,41 +1,46 @@
-import { Calendar, dateFnsLocalizer } from "react-big-calendar";
-import format from "date-fns/format";
-import parse from "date-fns/parse";
-import startOfWeek from "date-fns/startOfWeek";
-import getDay from "date-fns/getDay";
-import enUS from "date-fns/locale/en-US";
+import { Calendar } from "react-big-calendar";
+import "react-big-calendar/lib/css/react-big-calendar.css";
+import { addHours } from "date-fns";
 import { Navbar } from "../";
-
-const locales = {
-  "en-US": enUS,
-};
-
-const localizer = dateFnsLocalizer({
-  format,
-  parse,
-  startOfWeek,
-  getDay,
-  locales,
-});
+import { localizer, getMessagesES } from "../../helpers";
 
 const events = [
   {
     title: "Cumpleaños de la Jefa",
     notes: "Hay que comprar el pastel",
-    // start:
+    start: new Date(),
+    end: addHours(new Date(), 2), //suma dos horas al evento
+    bgColor: "#fafafa",
+    user: {
+      _id: "123",
+      name: "Jennifer",
+    },
   },
 ];
 export const CalendarPage = () => {
+  const eventStyleGetter = (event, start, end, isSeleted) => {
+    console.log({ event, start, end, isSeleted });
+    const style = {
+      backgroundColor: "#7158e2",
+      borderRadius: "0px",
+      opacity: 0.8,
+      color: "white",
+    };
+    return { style };
+  };
   return (
     <>
       <Navbar />
 
       <Calendar
+        culture="es"
         localizer={localizer}
-        events={myEventsList}
+        events={events}
         startAccessor="start"
         endAccessor="end"
-        style={{ height: 500 }}
+        style={{ height: "calc(100vh - 80px)" }}
+        messages={getMessagesES()}
+        eventPropGetter={eventStyleGetter}
       />
     </>
   );
