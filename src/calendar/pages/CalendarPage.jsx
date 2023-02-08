@@ -6,19 +6,6 @@ import { localizer, getMessagesES } from "../../helpers";
 import { useState } from "react";
 import { useUiStore } from "../../hooks";
 
-const events = [
-  {
-    title: "Cumpleaños de la Jefa",
-    notes: "Hay que comprar el pastel",
-    start: new Date(),
-    end: addHours(new Date(), 2), //suma dos horas al evento
-    bgColor: "#fafafa",
-    user: {
-      _id: "123",
-      name: "Jennifer",
-    },
-  },
-];
 export const CalendarPage = () => {
   const { openDateModal } = useUiStore();
   const [lastView, setLastView] = useState(
